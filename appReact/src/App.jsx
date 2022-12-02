@@ -57,6 +57,22 @@ function App() {
 	return (
 		
 		<div className="App">
+			<nav>
+				<ul class="menu">
+					<li>
+					Italy
+					<ul class="sub-menu">
+					{posts.length > 0 &&
+					posts.map((post) => {
+						return (
+							<Link to={`/categorie/${post.idC}`}><li>{post.idC}</li></Link>
+						);
+					})}
+					</ul>
+					</li>
+				</ul>
+			</nav>
+			
 			<h1> Login </h1>
 			<form onSubmit={handleSubmit}>
 				<div>
