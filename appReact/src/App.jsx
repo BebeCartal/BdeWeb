@@ -28,7 +28,6 @@ function App() {
 		console.log(username)
 		console.log(password)
 		//récupération des données rentrées
-		//alert(`You entered : ${username} and ${password}`)
 
 		const login = await fetch('http://localhost:3000/users/login/', {
 			method :"POST",

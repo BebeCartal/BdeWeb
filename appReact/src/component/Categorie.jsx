@@ -5,12 +5,12 @@ import { useCategoryStore } from '../store/categoryStore';
 function Categorie() {
 	let { id } = useParams();
 	const [categ, setCateg] = useState(null);
-	const { category } = useCategoryStore();
+	const { categories } = useCategoryStore();
 
 	useEffect(() => {
-		if (!id || !category) return;
-		setCateg(category.find((item) => Number(item.idC) === Number(id)));
-	}, [id, category]);
+		if (!id || !categories) return;
+		setCateg(categories.find((item) => Number(item.idC) === Number(id)));
+	}, [id, categories]);
 
 	return (
 		<div>
