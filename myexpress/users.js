@@ -1,4 +1,5 @@
 const express = require('express');
+const jwt = require('jsonwebtoken')
 const userRouter = express.Router();
 
 const mysql = require('mysql')
@@ -63,7 +64,12 @@ userRouter.route('/login')
           res.send('user found');
     })
     console.log(req.body)
-    
+    const token = jwt.sign({
+      id: user.id,
+      username: user.username
+    }, SECRET, { expiresIn: '3 hours' })
+
+    return res.json({ access_token: token })
     });
 
 userRouter.route('/:id/favoris')
