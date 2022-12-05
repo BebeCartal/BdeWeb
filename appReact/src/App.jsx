@@ -3,15 +3,20 @@ import './App.css';
 import { Link } from 'react-router-dom';
 
 import { usePostStore } from './store/postStore';
+import { useCategoryStore } from './store/categoryStore';
 
 function App() {
 	const { posts, setPosts } = usePostStore();
+	const { categories, setCategories } = useCategoryStore();//
 	const [SearchTerm, setSearchTerm] = useState("");
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	useEffect(() => {
 		fetch('http://localhost:3000/articles/')
 			.then((res) => res.json())
 			.then((res) => setPosts(res));
+		fetch('http://localhost:3000/categories/')
+			.then((resc) => resc.json())
+			.then((resc) => setCategories(resc));
 		
 		
 	}, []);
@@ -64,14 +69,14 @@ function App() {
 		<div className="App">
 			{isSubmitted ? <div>Connect</div> : render}
 			<nav>
-				<ul class="menu">
+				<ul className="menu">
 					<li>
-					Italy
-					<ul class="sub-menu">
-					{posts.length > 0 &&
-					posts.map((post) => {
+					Catégories
+					<ul className="sub-menu">
+					{categories.length > 0 &&
+					categories.map((post) => {
 						return (
-							<Link to={`/categorie/${post.idC}`}><li>{post.idC}</li></Link>
+							<Link key={post.idC} to={`/categorie/${post.idC}`}><li>{post.nomC}</li></Link>
 						);
 					})}
 					</ul>

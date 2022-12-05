@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { usePostStore } from '../store/postStore';
+import { useCategoryStore } from '../store/categoryStore';
 
 function Categorie() {
 	let { id } = useParams();
-	const [post, setPost] = useState(null);
-	const { posts } = usePostStore();
+	const [categ, setCateg] = useState(null);
+	const { category } = useCategoryStore();
 
 	useEffect(() => {
-		if (!id || !posts) return;
-		setPost(posts.find((item) => Number(item.idC) === Number(id)));
-	}, [id, posts]);
+		if (!id || !category) return;
+		setCateg(category.find((item) => Number(item.idC) === Number(id)));
+	}, [id, category]);
 
 	return (
 		<div>
 			
-			{post && (
+			{categ && (
 				<>
-					<h2>{post.nomC}</h2>
+					<h2>{categ.nomC}</h2>
 					<Link to={`/`}>retour à la liste</Link>
 				</>
 			)}
