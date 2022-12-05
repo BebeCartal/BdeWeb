@@ -14,7 +14,6 @@ function Categorie() {
 
 	return (
 		<div>
-			
 			{categ && (
 				<>
 					<h2>{categ.nomC}</h2>
