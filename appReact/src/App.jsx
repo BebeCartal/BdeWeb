@@ -7,6 +7,7 @@ import { usePostStore } from './store/postStore';
 function App() {
 	const { posts, setPosts } = usePostStore();
 	const [SearchTerm, setSearchTerm] = useState("");
+	const [isSubmitted, setIsSubmitted] = useState(false);
 	useEffect(() => {
 		fetch('http://localhost:3000/articles/')
 			.then((res) => res.json())
@@ -39,11 +40,13 @@ function App() {
 			console.log(login)
 
 
-		if (login !== 'user good') {
+		if (login !== 'user found') {
 		  alert(login)
 		}
-		else
-			alert(login)
+		else{
+			//alert(login)
+			setIsSubmitted(true);
+		}
 	}
 
 	const handleSearchTerm = (e) => {
@@ -53,10 +56,13 @@ function App() {
         setSearchTerm(value);
     };
 
+	const render=(<h1>Pas connecter</h1>)
+
 
 	return (
 		
 		<div className="App">
+			{isSubmitted ? <div>Connect</div> : render}
 			<nav>
 				<ul class="menu">
 					<li>
