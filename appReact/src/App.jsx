@@ -61,13 +61,27 @@ function App() {
         setSearchTerm(value);
     };
 
-	const render=(<h1>Pas connecter</h1>)
+	const renderForm=(
+	<div>
+		<h1> Login </h1>
+		<form onSubmit={handleSubmit}>
+			<div>
+				<label>Mail:</label>
+				<input type="email" name="email" id="usernameInput" required />
+			</div>
+			<div>
+				<label>Password: </label>
+				<input type="password" name="password" id="passwordInput" required />
+			</div>
+			<button type="submit">Se connecter</button>
+		</form>
+	</div>)
 
 
 	return (
 		
 		<div className="App">
-			{isSubmitted ? <div>Connect</div> : render}
+			{isSubmitted ? <h1>Connect</h1> : renderForm}
 			<nav>
 				<ul className="menu">
 					<li>
@@ -84,18 +98,7 @@ function App() {
 				</ul>
 			</nav>
 			
-			<h1> Login </h1>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label>Mail:</label>
-					<input type="email" name="email" id="usernameInput" required />
-				</div>
-				<div>
-					<label>Password: </label>
-					<input type="password" name="password" id="passwordInput" required />
-				</div>
-				<button type="submit">Se connecter</button>
-			</form>
+			
 			<h1>Les articles</h1>
 			<div className="card">
 				{posts.length > 0 &&
