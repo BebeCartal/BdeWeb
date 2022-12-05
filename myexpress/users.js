@@ -1,5 +1,12 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const userRouter = express.Router();
+
+// chargement du fichier d'env
+require('dotenv').config();
+// accès au variables
+process.env.ACCESS_TOKEN_SECRET;
+
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
@@ -8,6 +15,11 @@ const connection = mysql.createConnection({
   password: '',
   database: 'bde_bd'
 })
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1y' });
+}
+
 
 connection.connect()
 
@@ -22,8 +34,8 @@ userRouter.route('/')
 
     .post((req, res, next) => {
     connection.query('INSERT INTO utilisateur(idu, mail, mdp) VALUES (?,?,?)', [req.body.idU, req.body.mail, req.body.mdp], function (error, results, fields) {
-        if (error) throw error;
-        res.send('user add');
+      if (error) throw error;
+      res.send('user add');
     })
     console.log(req.body)
     })
@@ -53,14 +65,19 @@ userRouter.route('/:id')
 userRouter.route('/login')
   .post((req, res, next) => {
     connection.query('Select mail from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
-        if (error) throw error;
-        console.log(rows)
-        if (rows.length === 0){
-          res.send('invalid users or password')
-          return;
+      if (error) throw error;
+      console.log(rows)
+      if (rows.length === 0){
+        res.send('invalid users or password')
+        return;
+      }
+      else{
+        const user = {
+          mail: req.body.mail,
         }
-        else
-          res.send('user found');
+        const accessToken = generateAccessToken(user);
+        res.send({accessToken,});
+            }
     })
     console.log(req.body)
     

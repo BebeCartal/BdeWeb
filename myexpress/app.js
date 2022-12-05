@@ -1,6 +1,8 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken')
+const morgan = require('morgan')
 var cors = require('cors')
 const router = express.Router();
 const app = express()
@@ -11,8 +13,11 @@ const art = require('./articles')
 const users = require('./users')
 const cat = require('./categories')
 
+
+
 app.use(bodyParser.json())
 app.use(cors())
+app.use(morgan('tiny'))
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
