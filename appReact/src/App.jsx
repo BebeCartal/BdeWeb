@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { usePostStore } from './store/postStore';
 import { useCategoryStore } from './store/categoryStore';
+import {useUserStore} from './store/userStore';
 
 function App() {
 	const { posts, setPosts } = usePostStore();
-	const { categories, setCategories } = useCategoryStore();//
+	const { categories, setCategories } = useCategoryStore();
+	const { userToken, setUserToken } = useUserStore();
 	const [SearchTerm, setSearchTerm] = useState("");
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	useEffect(() => {
@@ -33,24 +35,26 @@ function App() {
 		const login = await fetch('http://localhost:3000/users/login/', {
 			method :"POST",
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoibWlsb0Bob3RtYWlsLmZyIiwiaWF0IjoxNjcwMjM3NDgxLCJleHAiOjE3MDE3OTUwODF9.qDSA-8926rh5Gckbb1s069G_IRURUlRVLukY0Wr6qKU'
 			  },
 			body: JSON.stringify({
 				mail: username,
 				mdp: password
 			})
 			
-		}).then(response => response.text())
+		}).then(response => response.json())
 
 			console.log(login)
 
 
-		if (login !== 'user found') {
-		  alert(login)
+		if (login.hasOwnProperty('accessToken')) {
+			setIsSubmitted(true);
+		  
 		}
 		else{
-			//alert(login)
-			setIsSubmitted(true);
+			alert(login.error)
+			
 		}
 	}
 

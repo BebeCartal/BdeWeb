@@ -2,8 +2,10 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const userRouter = express.Router();
 
+const checkTokenMiddleware = require('./utils');
+
 // chargement du fichier d'env
-require('dotenv').config();
+
 // accès au variables
 process.env.ACCESS_TOKEN_SECRET;
 
@@ -24,7 +26,7 @@ function generateAccessToken(user) {
 connection.connect()
 
 userRouter.route('/')
-    .get(function(req, res) {
+    .get(checkTokenMiddleware, function(req, res) {
     connection.query('SELECT * FROM utilisateur', (err, rows, fields) => {
       if (err) throw err
     
@@ -68,7 +70,9 @@ userRouter.route('/login')
       if (error) throw error;
       console.log(rows)
       if (rows.length === 0){
-        res.send('invalid users or password')
+        res.send({
+          error:'invalid user or password'
+        })
         return;
       }
       else{

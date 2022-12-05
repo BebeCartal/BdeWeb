@@ -8,6 +8,8 @@ const router = express.Router();
 const app = express()
 const port = 3000
 
+require('dotenv').config();
+
 
 const art = require('./articles')
 const users = require('./users')
