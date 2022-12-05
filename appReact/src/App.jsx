@@ -22,7 +22,7 @@ function App() {
 		
 		
 	}, []);
-
+	console.log(userToken)
 	async function handleSubmit(event) {
 		event.preventDefault()
 		const username = event.target.elements.usernameInput.value
@@ -44,7 +44,9 @@ function App() {
 			
 		}).then(response => response.json())
 
-			console.log(login)
+			//console.log(login)
+			setUserToken(login.accessToken)
+
 
 
 		if (login.hasOwnProperty('accessToken')) {
@@ -84,7 +86,7 @@ function App() {
 	return (
 		
 		<div className="App">
-			{isSubmitted ? <h1>Connect</h1> : renderForm}
+			{userToken !== "" ? <h1>Connect</h1> : renderForm}
 			<nav>
 				<ul className="menu">
 					<li>
