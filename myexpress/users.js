@@ -35,7 +35,7 @@ userRouter.route('/')
   })
 
     .post((req, res, next) => {
-    connection.query('INSERT INTO utilisateur(idu, mail, mdp) VALUES (?,?,?)', [req.body.idU, req.body.mail, req.body.mdp], function (error, results, fields) {
+    connection.query('INSERT INTO utilisateur(mail, mdp) VALUES (?,?)', [req.body.mail, req.body.mdp], function (error, results, fields) {
       if (error) throw error;
       res.send('user add');
     })
@@ -68,7 +68,6 @@ userRouter.route('/login')
   .post((req, res, next) => {
     connection.query('Select mail, role from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
       if (error) throw error;
-      console.log(rows[0].role)
       if (rows.length === 0){
         res.send({
           error:'invalid user or password'

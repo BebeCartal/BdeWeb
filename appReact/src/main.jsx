@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Article from './component/Article';
 import Categorie from './component/Categorie';
+import Login from './component/Login';
+import Register from './component/Register';
 import './index.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
@@ -16,8 +18,16 @@ const router = createBrowserRouter([
 		element: <Article />,
 	},
 	{
-		path: 'categorie/:id',
+		path: '/categorie/:id',
 		element: <Categorie />,
+	},
+	{
+		path:'/login',
+		element: <Login />,
+	},
+	{
+		path:'/register',
+		element: <Register />,
 	},
 ]);
 
