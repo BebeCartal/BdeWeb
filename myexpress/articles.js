@@ -1,5 +1,11 @@
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const articleRouter = express.Router();
+
+const checkTokenMiddleware = require('./utils');
+
+process.env.ACCESS_TOKEN_SECRET;
+
 
 const mysql = require('mysql')
 const connection = mysql.createConnection({
@@ -20,7 +26,7 @@ articleRouter.route('/')
     })
   })
 
-  .post((req, res, next) => {
+  .post(checkTokenMiddleware, (req, res, next) => {
     connection.query('INSERT INTO article(idA, titre, texte) VALUES (?,?,?)', [req.body.idA, req.body.titre, req.body.texte], function (error, results, fields) {
       if (error) throw error;
       res.send('article add');
@@ -37,12 +43,12 @@ articleRouter.route('/:id')
     })
   })
 
-  .put(function(req, res) {
+  .put(checkTokenMiddleware, function(req, res) {
     connection.query('Update article SET titre = ?, texte = ? WHERE idA = ?', [req.body.titre, req.body.texte, req.params.id])
     res.send('Update article');
   })
 
-  .delete((req, res) => {
+  .delete(checkTokenMiddleware, (req, res) => {
     connection.query('DELETE FROM article WHERE idA = ?', [req.params.id], function (error, results){
       if (error) throw error;
       res.send('article delete');

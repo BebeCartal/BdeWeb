@@ -27,7 +27,7 @@ connection.connect()
 
 userRouter.route('/')
     .get(checkTokenMiddleware, function(req, res) {
-    connection.query('SELECT * FROM utilisateur', (err, rows, fields) => {
+    connection.query('SELECT mail, mdp FROM utilisateur', (err, rows, fields) => {
       if (err) throw err
     
       res.send(rows)
@@ -44,19 +44,19 @@ userRouter.route('/')
 
 
 userRouter.route('/:id')
-  .get(function(req, res){
-    connection.query('Select * from utilisateur where idU = ?',[req.params.id], function(error,rows){
+  .get(checkTokenMiddleware, function(req, res){
+    connection.query('Select idU, mail, mdp from utilisateur where idU = ?',[req.params.id], function(error,rows){
       if (error) throw error
       res.send(rows)
     })
   })
 
-  .put(function(req, res) {
+  .put(checkTokenMiddleware, function(req, res) {
     connection.query('Update utilisateur SET mail = ?, mdp = ? WHERE idU = ?', [req.body.mail, req.body.mdp, req.params.id])
     res.send('Update article');
   })
 
-  .delete((req, res) => {
+  .delete(checkTokenMiddleware, (req, res) => {
     connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results){
       if (error) throw error;
       res.send('users delete');
@@ -66,9 +66,9 @@ userRouter.route('/:id')
 
 userRouter.route('/login')
   .post((req, res, next) => {
-    connection.query('Select mail from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
+    connection.query('Select mail, role from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
       if (error) throw error;
-      console.log(rows)
+      console.log(rows[0].role)
       if (rows.length === 0){
         res.send({
           error:'invalid user or password'
@@ -78,6 +78,7 @@ userRouter.route('/login')
       else{
         const user = {
           mail: req.body.mail,
+          role: rows[0].role,
         }
         const accessToken = generateAccessToken(user);
         res.send({accessToken,});
@@ -88,7 +89,7 @@ userRouter.route('/login')
     });
 
 userRouter.route('/:id/favoris')
-  .get(function(req, res){
+  .get(checkTokenMiddleware, function(req, res){
     connection.query('SELECT article.idA, article.titre FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?',[req.params.id], function(error,rows){
       if (error) throw error
       res.send(rows)

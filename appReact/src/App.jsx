@@ -88,19 +88,12 @@ function App() {
 		<div className="App">
 			{userToken !== "" ? <h1>Connect</h1> : renderForm}
 			<nav>
-				<ul className="menu">
-					<li>
-					Catégories
-					<ul className="sub-menu">
-					{categories.length > 0 &&
-					categories.map((post) => {
-						return (
-							<Link key={post.idC} to={`/categorie/${post.idC}`}><li>{post.nomC}</li></Link>
-						);
-					})}
-					</ul>
-					</li>
-				</ul>
+				{categories.length > 0 &&
+				categories.map((post) => {
+					return (
+						<Link key={post.idC} to={`/categorie/${post.idC}`}><button class="categorieButton">{post.nomC}</button></Link>
+					);
+				})}
 			</nav>
 			
 			
