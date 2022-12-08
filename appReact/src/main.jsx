@@ -5,6 +5,7 @@ import Article from './component/Article';
 import Categorie from './component/Categorie';
 import Login from './component/Login';
 import Register from './component/Register';
+import User from './component/User';
 import './index.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
 		path:'/register',
 		element: <Register />,
 	},
+	{
+		path:'/users/:id',
+		element: <User />
+	}
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

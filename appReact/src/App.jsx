@@ -7,10 +7,13 @@ import { useCategoryStore } from './store/categoryStore';
 import {useUserStore} from './store/userStore';
 
 function App() {
+	let idu;
 	const { posts, setPosts } = usePostStore();
 	const { categories, setCategories } = useCategoryStore();
-	const { userToken, setUserToken } = useUserStore();
+	const { userToken, userConnect, setUserToken, setConnect } = useUserStore();
 	const [SearchTerm, setSearchTerm] = useState("");
+
+	//console.log(userToken);
 	useEffect(() => {
 		fetch('http://localhost:3000/articles/')
 			.then((res) => res.json())
@@ -31,13 +34,20 @@ function App() {
 
 	const Disconnect = (e) =>{
 		setUserToken('');
+		setConnect('');
 	}
+
+	const consoleLog = (e =>{
+		console.log("Token ."+userToken);
+		console.log("user connect ."+userConnect);
+	})
 
 	return (
 		
 		<div>
 			
 			<header>
+				<button onClick={consoleLog}> Console Log</button>
 				<nav>
 					{categories.length > 0 &&
 					categories.map((post) => {
@@ -48,7 +58,7 @@ function App() {
 				</nav>
 				<input type="text" placeholder="search" onChange={handleSearchTerm} />
 				{userToken !== "" ? <button onClick={Disconnect}>Disconnect</button> : <Link to={`/login`}><button>Sign In</button></Link>}
-				{userToken !== "" ? <p></p> : <Link to={`/register`}><button>Sign Up</button></Link>}
+				{userToken !== "" ? <Link to={`/users/${userConnect}`}><button>account</button></Link> : <Link to={`/register`}><button>Sign Up</button></Link>}
 			</header>
 			<h1>Les articles</h1>
 			

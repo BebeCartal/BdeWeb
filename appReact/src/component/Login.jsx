@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {useUserStore} from '../store/userStore';
 
 function Login() {
-    const { userToken, setUserToken } = useUserStore();
+    const { userToken, userConnect, setUserToken, setConnect } = useUserStore();
     const [isSubmitted, setIsSubmitted] = useState(false);
 
 	async function handleSubmit(event) {
@@ -12,6 +12,7 @@ function Login() {
 		const username = event.target.elements.usernameInput.value
 		const password = event.target.elements.passwordInput.value
 
+		console.log(userConnect)
 		const login = await fetch('http://localhost:3000/users/login/', {
 			method :"POST",
 			headers: {
@@ -25,16 +26,25 @@ function Login() {
 			
 		}).then(response => response.json())
 
-			setUserToken(login.accessToken)
+			setUserToken(login.accessToken);
+			setConnect(login.user.idU)
+
 
 		if (login.hasOwnProperty('accessToken')) {
 			setIsSubmitted(true);
 		}
 		else{
             setUserToken('')
+			setConnect('')
 			alert(login.error)
 		}
 	}
+
+	const consoleLog = (e =>{
+		console.log("Token ."+userToken);
+		console.log("users "+ userConnect);
+		
+	})
 
     const renderForm=(
         <div>
@@ -53,6 +63,7 @@ function Login() {
                     </div>
                 </div>
                 <button type="submit">Se connecter</button>
+				<Link to={`/register`}><button>Sign Up</button></Link>
             </form>
         </div>
     )
@@ -62,6 +73,7 @@ function Login() {
 		<div>
 			
 			{userToken !== "" ? <Link to={`/`}><h1>Home</h1></Link> : renderForm}
+			<button onClick={consoleLog}> Console Log</button>
 	
 		</div>
 	);

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import '../App.css'
 import { useParams, Link } from 'react-router-dom';
 import { useCategoryStore } from '../store/categoryStore';
 
@@ -10,6 +11,7 @@ function Categorie() {
 	const [categ, setCateg] = useState(null);
 	const { categories } = useCategoryStore();
 
+	
 	useEffect(() => {
 		fetch('http://localhost:3000/categories/'+id)
 			.then((res) => res.json())

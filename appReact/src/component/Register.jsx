@@ -25,7 +25,7 @@ function Register() {
 			
 		}).then(response => response.json())
 
-			/*setUserToken(login.accessToken)
+		setUserToken(login.accessToken)
 
 		if (login.hasOwnProperty('accessToken')) {
 			setIsSubmitted(true);
@@ -33,7 +33,7 @@ function Register() {
 		else{
             setUserToken('')
 			alert(login.error)
-		}*/
+		}
 	}
 
     const renderForm=(
@@ -53,6 +53,7 @@ function Register() {
                     </div>
                 </div>
                 <button type="submit">Creer un compte</button>
+				<Link to={`/login`}><button>Sign In</button></Link>
             </form>
         </div>
     )
@@ -61,7 +62,7 @@ function Register() {
 		
 		<div>
 			
-			{userToken !== "" ? <Link to={`/login`}><h1>Se connecter</h1></Link> : renderForm}
+			{isSubmitted ? <Link to={`/login`}><h1>Se connecter</h1></Link> : renderForm}
 	
 		</div>
 	);

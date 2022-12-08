@@ -35,11 +35,21 @@ userRouter.route('/')
   })
 
     .post((req, res, next) => {
-    connection.query('INSERT INTO utilisateur(mail, mdp) VALUES (?,?)', [req.body.mail, req.body.mdp], function (error, results, fields) {
-      if (error) throw error;
-      res.send('user add');
+    connection.query('INSERT INTO utilisateur(mail, mdp) VALUES (?,?)', [req.body.mail, req.body.mdp], function (error) {
+      //if (error) throw error;
+      if(error){
+        res.send({error:"mail already use"})
+        return;
+      }
+      else{
+        const user = {
+          mail: req.body.mail,
+        }
+        const accessToken = generateAccessToken(user);
+        res.send({accessToken, user,});
+      }
     })
-    console.log(req.body)
+    //console.log(req.body)
     })
 
 
@@ -59,6 +69,7 @@ userRouter.route('/:id')
   .delete(checkTokenMiddleware, (req, res) => {
     connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results){
       if (error) throw error;
+
       res.send('users delete');
     })
     console.log(req.body)
@@ -66,7 +77,7 @@ userRouter.route('/:id')
 
 userRouter.route('/login')
   .post((req, res, next) => {
-    connection.query('Select mail, role from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
+    connection.query('Select idU, mail, role from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
       if (error) throw error;
       if (rows.length === 0){
         res.send({
@@ -76,11 +87,12 @@ userRouter.route('/login')
       }
       else{
         const user = {
+          idU: rows[0].idU,
           mail: req.body.mail,
           role: rows[0].role,
         }
         const accessToken = generateAccessToken(user);
-        res.send({accessToken,});
+        res.send({accessToken,user,});
             }
     })
     console.log(req.body)
