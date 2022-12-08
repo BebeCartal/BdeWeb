@@ -44,7 +44,7 @@ function App() {
 
 	return (
 		
-		<div>
+		<div className='root'>
 			
 			<header>
 				<button onClick={consoleLog}> Console Log</button>

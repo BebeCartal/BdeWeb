@@ -13,7 +13,7 @@ function Article() {
 	}, [id, posts]);
 
 	return (
-		<div>
+		<div className='root'>
 			
 			{post && (
 				<>

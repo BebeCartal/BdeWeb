@@ -9,7 +9,7 @@ function Categorie() {
 	let { id } = useParams();
 	const { posts, setPosts } = usePostStore();
 	const [categ, setCateg] = useState(null);
-	const { categories } = useCategoryStore();
+	const { categories, setCategories } = useCategoryStore();
 
 	
 	useEffect(() => {
@@ -31,7 +31,7 @@ function Categorie() {
     };
 
 	return (
-		<div>
+		<div className='root'>
 			<header>
 			
 				<nav>

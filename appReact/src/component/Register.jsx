@@ -16,7 +16,7 @@ function Register() {
 			method :"POST",
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoibWlsb0Bob3RtYWlsLmZyIiwiaWF0IjoxNjcwMjM3NDgxLCJleHAiOjE3MDE3OTUwODF9.qDSA-8926rh5Gckbb1s069G_IRURUlRVLukY0Wr6qKU'
+				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFUiOjEsIm1haWwiOiJtaWxvQGhvdG1haWwuZnIiLCJyb2xlIjoxLCJpYXQiOjE2NzA1MzEyMzUsImV4cCI6MTcwMjA4ODgzNX0.hFsjpS_joetTIXp-c1RU9N9MH6-JXNxRtFYf6YQ8EqU'
 			  },
 			body: JSON.stringify({
 				mail: username,
@@ -37,7 +37,7 @@ function Register() {
 	}
 
     const renderForm=(
-        <div>
+        <div className='root'>
             <form onSubmit={handleSubmit}>
             <h1> Sign Up </h1>
                 <div className='cote'>
@@ -60,7 +60,7 @@ function Register() {
     
     return (
 		
-		<div>
+		<div className='root'>
 			
 			{isSubmitted ? <Link to={`/login`}><h1>Se connecter</h1></Link> : renderForm}
 	

@@ -8,11 +8,18 @@ body{
 }
 
 #root {
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
+  width: 100%;
 }
 
-
+.root{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 form{
   background-color: #B5DEE0;
   max-width: 400px;
@@ -64,10 +71,12 @@ header{
   margin-top: 0;
   background-color: #42B395;
   width: 100%;
-  height: 100px;
+  
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-flow: row wrap;
 
 }
 
@@ -76,6 +85,7 @@ nav {
   display: flex;
   justify-content: space-around;
   width: 100%;
+  flex-flow: row wrap;
 }
 
 nav button{
@@ -90,10 +100,9 @@ nav button:hover{
 }
 
 .tab{
-  width: 1500px;
   display: flex;
   justify-content: space-around;
-  flex-flow: row, wrap;
+  flex-flow: row wrap;
 }
 
 .card {
@@ -107,6 +116,7 @@ nav button:hover{
   flex-direction: column;
   text-align: center;
   justify-content: center;
+  margin:20px
 }
 
 .card:hover{

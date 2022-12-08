@@ -54,7 +54,7 @@ userRouter.route('/')
 
 
 userRouter.route('/:id')
-  .get(checkTokenMiddleware, function(req, res){
+  .get(function(req, res){
     connection.query('Select idU, mail, mdp from utilisateur where idU = ?',[req.params.id], function(error,rows){
       if (error) throw error
       res.send(rows)
@@ -62,8 +62,10 @@ userRouter.route('/:id')
   })
 
   .put(checkTokenMiddleware, function(req, res) {
-    connection.query('Update utilisateur SET mail = ?, mdp = ? WHERE idU = ?', [req.body.mail, req.body.mdp, req.params.id])
-    res.send('Update article');
+    connection.query('Update utilisateur SET mdp = ? WHERE mail = ?', [req.body.mdp, req.body.mail], function(error, results){
+      if (error) throw error
+    })
+    res.send('Update users');
   })
 
   .delete(checkTokenMiddleware, (req, res) => {
