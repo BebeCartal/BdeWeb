@@ -6,6 +6,7 @@ import Categorie from './component/Categorie';
 import Login from './component/Login';
 import Register from './component/Register';
 import User from './component/User';
+import AddArt from './component/Addarticle';
 import './index.css';
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
@@ -13,14 +14,6 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <App />,
-	},
-	{
-		path: '/articles/:id',
-		element: <Article />,
-	},
-	{
-		path: '/categorie/:id',
-		element: <Categorie />,
 	},
 	{
 		path:'/login',
@@ -33,7 +26,20 @@ const router = createBrowserRouter([
 	{
 		path:'/users/:id',
 		element: <User />
-	}
+	},
+	{
+		path: '/articles/:id',
+		element: <Article />,
+	},
+	{
+		path: '/articles/add',
+		element: <AddArt />,
+	},
+	{
+		path: '/categorie/:id',
+		element: <Categorie />,
+	},
+	
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

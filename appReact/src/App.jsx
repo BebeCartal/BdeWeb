@@ -7,10 +7,9 @@ import { useCategoryStore } from './store/categoryStore';
 import {useUserStore} from './store/userStore';
 
 function App() {
-	let idu;
 	const { posts, setPosts } = usePostStore();
 	const { categories, setCategories } = useCategoryStore();
-	const { userToken, userConnect, setUserToken, setConnect } = useUserStore();
+	const { userToken, userConnect, role, setUserToken, setConnect } = useUserStore();
 	const [SearchTerm, setSearchTerm] = useState("");
 
 	//console.log(userToken);
@@ -59,6 +58,7 @@ function App() {
 				<input type="text" placeholder="search" onChange={handleSearchTerm} />
 				{userToken !== "" ? <button onClick={Disconnect}>Disconnect</button> : <Link to={`/login`}><button>Sign In</button></Link>}
 				{userToken !== "" ? <Link to={`/users/${userConnect}`}><button>account</button></Link> : <Link to={`/register`}><button>Sign Up</button></Link>}
+				{role !== 1 ? <p></p> : <Link to={`/articles/add`}><button>Add Article</button></Link>}
 			</header>
 			<h1>Les articles</h1>
 			

@@ -26,12 +26,12 @@ articleRouter.route('/')
     })
   })
 
-  .post(checkTokenMiddleware, (req, res, next) => {
-    connection.query('INSERT INTO article(idA, titre, texte) VALUES (?,?,?)', [req.body.idA, req.body.titre, req.body.texte], function (error, results, fields) {
+  .post((req, res, next) => {
+    connection.query('INSERT INTO article(titre, texte) VALUES (?,?)', [ req.body.titre, req.body.texte], function (error, results, fields) {
       if (error) throw error;
       res.send('article add');
     })
-    console.log(req.body)
+    //console.log(req.body)
   
   });
 

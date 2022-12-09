@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {useUserStore} from '../store/userStore';
 
 function Login() {
-    const { userToken, userConnect, setUserToken, setConnect } = useUserStore();
+    const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
     const [isSubmitted, setIsSubmitted] = useState(false);
 
 	async function handleSubmit(event) {
@@ -26,7 +26,8 @@ function Login() {
 		}).then(response => response.json())
 
 			setUserToken(login.accessToken);
-			setConnect(login.user.idU)
+			setConnect(login.user.idU);
+			setRole(login.user.role)
 
 
 		if (login.hasOwnProperty('accessToken')) {
