@@ -8,6 +8,7 @@ import Register from './component/Register';
 import User from './component/User';
 import AddArt from './component/Addarticle';
 import './index.css';
+
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';
 
 const router = createBrowserRouter([

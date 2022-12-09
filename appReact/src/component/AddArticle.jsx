@@ -28,22 +28,20 @@ function AddArt() {
 		
 		<div className='root'>
             
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id='AddArt'>
             
             <h1> Add Article </h1>
                 <div className='cote'>
-                    <div className='test'>
+                    <div>
                         <label>Title:</label>
+                        <textarea type="text" name="title" id="titleInput" required cols="50"/>
                         <label>Content: </label>
-                        
+                        <textarea type="text" name="content" id="contentInput" required rows="4" cols="50"/>
                     </div>
                 
-                    <div className='test'>
-                        <input type="text" name="title" id="titleInput" required />
-                        <textarea type="text" name="content" id="contentInput" required />
-                    </div>
                 </div>
                 <button type="submit">Add</button>
+
                 <Link to={`/`}><button>Home</button></Link>
             </form>
             
