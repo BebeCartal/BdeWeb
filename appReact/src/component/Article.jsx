@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { usePostStore } from '../store/postStore';
+import {useUserStore} from '../store/userStore';
 
 function Article() {
 	let { id } = useParams();
 	const [post, setPost] = useState(null);
 	const { posts } = usePostStore();
+	const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
 
 	useEffect(() => {
 		if (!id || !posts) return;
@@ -36,7 +38,8 @@ function Article() {
 					<h1>{post.titre}</h1>
 					<p className='postTxt'>{post.texte}</p>
 					<Link to={`/`}>retour à la liste</Link>
-					<button onClick={del}>Delete</button>
+					
+					{role !== 1 ? <p></p> : <button onClick={del}>Delete</button>}
 				</>
 			)}
 		</div>
