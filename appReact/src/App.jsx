@@ -9,7 +9,7 @@ import {useUserStore} from './store/userStore';
 function App() {
 	const { posts, setPosts } = usePostStore();
 	const { categories, setCategories } = useCategoryStore();
-	const { userToken, userConnect, role, setUserToken, setConnect } = useUserStore();
+	const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
 	const [SearchTerm, setSearchTerm] = useState("");
 
 	//console.log(userToken);
@@ -34,6 +34,7 @@ function App() {
 	const Disconnect = (e) =>{
 		setUserToken('');
 		setConnect('');
+		setRole('');
 	}
 
 	const consoleLog = (e =>{

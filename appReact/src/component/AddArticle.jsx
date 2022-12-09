@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function AddArt() {
 
@@ -18,8 +18,8 @@ function AddArt() {
 			body: JSON.stringify({
 				titre: title,
 				texte: content
-			})
-			
+			}),
+
 		}).then(response => response.text())
         alert(addArticle);
 	}
@@ -30,16 +30,15 @@ function AddArt() {
             
             <form onSubmit={handleSubmit} id='AddArt'>
             
-            <h1> Add Article </h1>
-                <div className='cote'>
-                    <div>
-                        <label>Title:</label>
-                        <textarea type="text" name="title" id="titleInput" required cols="50"/>
-                        <label>Content: </label>
-                        <textarea type="text" name="content" id="contentInput" required rows="4" cols="50"/>
-                    </div>
+           		<h1> Add Article </h1>
                 
-                </div>
+				<div id="art">
+					<label>Title:</label>
+					<textarea type="text" name="title" id="titleInput" required rows="2" cols="50"/>
+					<label>Content: </label>
+					<textarea type="text" name="content" id="contentInput" required rows="40" cols="100"/>
+				</div>
+            
                 <button type="submit">Add</button>
 
                 <Link to={`/`}><button>Home</button></Link>
