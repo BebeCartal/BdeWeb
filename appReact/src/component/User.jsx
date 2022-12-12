@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import '../App.css';
 import { useParams, Link } from 'react-router-dom';
 import {useUserStore} from '../store/userStore';
+import { usePostStore } from '../store/postStore';
 
 function User() {
     let { id } = useParams();
+	const { posts, setPosts } = usePostStore();
     const [user, setUser] = useState(null);
     const { userToken, users, userConnect, setUserToken, setUsers } = useUserStore();
     
@@ -12,6 +14,10 @@ function User() {
 		fetch('http://localhost:3000/users/'+id)
 			.then((res) => res.json())
 			.then((res) => setUsers(res));
+		
+			fetch('http://localhost:3000/users/'+id+'/favoris')
+			.then((resc) => resc.json())
+			.then((resc) => setPosts(resc));
         if (!id || !userConnect) return;
 		setUser(users.find((item) => Number(item.idU) === Number(id)));
 	}, [id, users]);
@@ -26,7 +32,7 @@ function User() {
 			method :"PUT",
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFUiOjEsIm1haWwiOiJtaWxvQGhvdG1haWwuZnIiLCJyb2xlIjoxLCJpYXQiOjE2NzA1MzEyMzUsImV4cCI6MTcwMjA4ODgzNX0.hFsjpS_joetTIXp-c1RU9N9MH6-JXNxRtFYf6YQ8EqU'
+				'authorization' : 'bearer '+userToken
 			  },
 			body: JSON.stringify({
 				mail: username,
@@ -48,9 +54,9 @@ function User() {
 
     return (
 		<div className='root'>
+
             {user && (
 				<>
-
                 <div>
                     <form onSubmit={handleSubmit}>
                         <h1>{user.mail}</h1>
@@ -70,10 +76,21 @@ function User() {
                         <Link to={`/`}><button>Home</button></Link>
                     </form>
                 </div>
-					
-					
 				</>
 			)}
+			<div className='tab'>
+				{posts.length > 0 &&
+					posts.map((post) => {
+						return (
+							<Link to={`/articles/${post.idA}`}>
+									<div key={post.idA} className="card">
+										<h2>{post.titre}</h2>
+										<p>{post.texte}</p>
+									</div>
+								</Link>
+						);
+					})}
+			</div>
 		</div>
 	);
 }

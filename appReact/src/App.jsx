@@ -47,7 +47,7 @@ function App() {
 		<div className='root'>
 			
 			<header>
-				<button onClick={consoleLog}> Console Log</button>
+				{role !==1 ? <p></p> : <button onClick={consoleLog}> Console Log</button>}
 				<nav>
 					{categories.length > 0 &&
 					categories.map((post) => {

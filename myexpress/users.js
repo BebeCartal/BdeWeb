@@ -102,11 +102,18 @@ userRouter.route('/login')
     });
 
 userRouter.route('/:id/favoris')
-  .get(checkTokenMiddleware, function(req, res){
-    connection.query('SELECT article.idA, article.titre FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?',[req.params.id], function(error,rows){
+  .get(function(req, res){
+    connection.query('SELECT article.idA, article.titre, article.texte FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?',[req.params.id], function(error,rows){
       if (error) throw error
       res.send(rows)
     })
+  })
+  .post((req, res, next) => {
+    connection.query('INSERT INTO favoris(idU,idA) VALUES(?,?)', [req.body.idU, req.body.idA], function (error, rows) {
+      if (error) throw error;
+      res.send("Fav add")
+    })
+  
   })
 
 module.exports = userRouter;

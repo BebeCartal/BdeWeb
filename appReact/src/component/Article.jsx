@@ -9,6 +9,8 @@ function Article() {
 	const { posts } = usePostStore();
 	const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
 
+	let idU = userConnect;
+
 	useEffect(() => {
 		if (!id || !posts) return;
 		setPost(posts.find((item) => Number(item.idA) === Number(id)));
@@ -20,7 +22,7 @@ function Article() {
 			method :"DELETE",
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFUiOjEsIm1haWwiOiJtaWxvQGhvdG1haWwuZnIiLCJyb2xlIjoxLCJpYXQiOjE2NzA1MzEyMzUsImV4cCI6MTcwMjA4ODgzNX0.hFsjpS_joetTIXp-c1RU9N9MH6-JXNxRtFYf6YQ8EqU'
+				'authorization' : 'bearer '+userToken
 			  },
 			body: JSON.stringify({
 				idA: id,
@@ -28,6 +30,23 @@ function Article() {
 			
 		}).then(response => response.text())
 		alert(deleteArt)
+	}
+
+	async function favoris() {
+
+		const fav = await fetch('http://localhost:3000/users/'+idU+'/favoris', {
+			method :"POST",
+			headers: {
+				'Content-Type': 'application/json',
+				'authorization' : 'bearer '+userToken
+			  },
+			body: JSON.stringify({
+				idU: idU,
+				idA: id
+			})
+			
+		}).then(response => response.text())
+		alert(fav)
 	}
 
 	return (
@@ -40,6 +59,8 @@ function Article() {
 					<Link to={`/`}>retour à la liste</Link>
 					
 					{role !== 1 ? <p></p> : <button onClick={del}>Delete</button>}
+					{userToken !== '' ? <button onClick={favoris}>Add to Fav</button> : <p></p>}
+
 				</>
 			)}
 		</div>

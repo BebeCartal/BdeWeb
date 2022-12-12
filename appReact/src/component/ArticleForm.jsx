@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
 import { useParams, Link } from 'react-router-dom';
+import {useUserStore} from '../store/userStore';
+
 
 function AddArt() {
+	const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
 
 	async function handleSubmit(event) {
 		event.preventDefault()
@@ -13,7 +16,7 @@ function AddArt() {
 			method :"POST",
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFUiOjEsIm1haWwiOiJtaWxvQGhvdG1haWwuZnIiLCJyb2xlIjoxLCJpYXQiOjE2NzA1MzEyMzUsImV4cCI6MTcwMjA4ODgzNX0.hFsjpS_joetTIXp-c1RU9N9MH6-JXNxRtFYf6YQ8EqU'
+				'authorization' : 'bearer '+userToken
 			  },
 			body: JSON.stringify({
 				titre: title,
