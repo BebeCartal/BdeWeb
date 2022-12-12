@@ -6,7 +6,7 @@ import Categorie from './component/Categorie';
 import Login from './component/Login';
 import Register from './component/Register';
 import User from './component/User';
-import AddArt from './component/Addarticle';
+import AddArt from './component/AddArticle';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom';

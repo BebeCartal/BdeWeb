@@ -61,7 +61,7 @@ userRouter.route('/:id')
     })
   })
 
-  .put(checkTokenMiddleware, function(req, res) {
+  .put(function(req, res) {
     connection.query('Update utilisateur SET mdp = ? WHERE mail = ?', [req.body.mdp, req.body.mail], function(error, results){
       if (error) throw error
     })
@@ -113,7 +113,13 @@ userRouter.route('/:id/favoris')
       if (error) throw error;
       res.send("Fav add")
     })
-  
+  })
+  .delete((req, res) => {
+    connection.query('DELETE FROM favoris WHERE idU = ? AND idA = ?', [req.body.idU], function (error, results){
+      if (error) throw error;
+
+      res.send('Fav del');
+    })
   })
 
 module.exports = userRouter;

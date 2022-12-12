@@ -41,8 +41,25 @@ function User() {
 			
 		}).then(response => response.text())
         alert(update)
-			
 	};
+
+	async function delFav(idA) {
+
+		const deleteFav = await fetch('http://localhost:3000/users/'+id+'/favoris', {
+			method :"DELETE",
+			headers: {
+				'Content-Type': 'application/json',
+				'authorization' : 'bearer '+userToken
+			  },
+			body: JSON.stringify({
+				idU: id,
+				idA: idA,
+
+			})
+			
+		}).then(response => response.text())
+		alert(deleteFav)
+	}
 
     const consoleLog = (e =>{
         console.log("id ."+id)
@@ -82,12 +99,13 @@ function User() {
 				{posts.length > 0 &&
 					posts.map((post) => {
 						return (
-							<Link to={`/articles/${post.idA}`}>
-									<div key={post.idA} className="card">
-										<h2>{post.titre}</h2>
-										<p>{post.texte}</p>
-									</div>
-								</Link>
+							
+								<div key={post.idA} className="card">
+									<Link to={`/articles/${post.idA}`}><h2>{post.titre}</h2></Link>
+									<p>{post.texte}</p>
+									<button onClick={() => delFav(post.idA)}>Del from Fav</button>
+								</div>
+							
 						);
 					})}
 			</div>
