@@ -3,24 +3,36 @@ import '../App.css';
 import { useParams, Link } from 'react-router-dom';
 import {useUserStore} from '../store/userStore';
 import { usePostStore } from '../store/postStore';
+import { useNavigate } from "react-router-dom";
 
 function User() {
     let { id } = useParams();
 	const { posts, setPosts } = usePostStore();
     const [user, setUser] = useState(null);
     const { userToken, users, userConnect, setUserToken, setUsers } = useUserStore();
+	const navigate = useNavigate();
     
     useEffect(() => {
-		fetch('http://localhost:3000/users/'+id)
+		fetch('http://localhost:3000/users/'+id, {
+			headers: {
+				'Content-Type': 'application/json',
+				'authorization' : 'bearer '+userToken,
+			  },
+			})
 			.then((res) => res.json())
 			.then((res) => setUsers(res));
 		
-			fetch('http://localhost:3000/users/'+id+'/favoris')
+			fetch('http://localhost:3000/users/'+id+'/favoris',{
+				headers: {
+					'Content-Type': 'application/json',
+					'authorization' : 'bearer '+userToken,
+				  },
+			})
 			.then((resc) => resc.json())
 			.then((resc) => setPosts(resc));
         if (!id || !userConnect) return;
 		setUser(users.find((item) => Number(item.idU) === Number(id)));
-	}, [id, users]);
+	}, [id]);
 
 
     async function handleSubmit(event) {
@@ -58,15 +70,8 @@ function User() {
 			})
 			
 		}).then(response => response.text())
-		alert(deleteFav)
+		navigate('/');
 	}
-
-    const consoleLog = (e =>{
-        console.log("id ."+id)
-		console.log("users ."+users.find((item) => Number(item.idU) === Number(id)));
-		console.log("user connect ."+userConnect);
-
-	})
 
 
     return (

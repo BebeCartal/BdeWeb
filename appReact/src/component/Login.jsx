@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom';
-import {useUserStore} from '../store/userStore';
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from '../store/userStore';
 
 function Login() {
     const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
     const [isSubmitted, setIsSubmitted] = useState(false);
+	const navigate = useNavigate();
 
 	async function handleSubmit(event) {
 		event.preventDefault()
@@ -16,7 +18,7 @@ function Login() {
 			method :"POST",
 			headers: {
 				'Content-Type': 'application/json',
-				'authorization' : 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZFUiOjEsIm1haWwiOiJtaWxvQGhvdG1haWwuZnIiLCJyb2xlIjoxLCJpYXQiOjE2NzA1MzEyMzUsImV4cCI6MTcwMjA4ODgzNX0.hFsjpS_joetTIXp-c1RU9N9MH6-JXNxRtFYf6YQ8EqU'
+				
 			  },
 			body: JSON.stringify({
 				mail: username,
@@ -31,7 +33,7 @@ function Login() {
 
 
 		if (login.hasOwnProperty('accessToken')) {
-			setIsSubmitted(true);
+			navigate("/");
 		}
 		else{
             setUserToken('')
@@ -39,12 +41,6 @@ function Login() {
 			alert(login.error)
 		}
 	}
-
-	const consoleLog = (e =>{
-		console.log("Token ."+userToken);
-		console.log("users "+ userConnect);
-		
-	})
 
     const renderForm=(
         <div className='root'>
@@ -64,6 +60,7 @@ function Login() {
                 </div>
                 <button type="submit">Se connecter</button>
 				<Link to={`/register`}><button>Sign Up</button></Link>
+				<Link to={`/`}><button>Home</button></Link>
             </form>
         </div>
     )

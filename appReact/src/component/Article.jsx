@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { usePostStore } from '../store/postStore';
 import {useUserStore} from '../store/userStore';
+import { useNavigate } from "react-router-dom";
 
 function Article() {
 	let { id } = useParams();
 	const [post, setPost] = useState(null);
 	const { posts } = usePostStore();
 	const { userToken, userConnect, role, setUserToken, setConnect, setRole } = useUserStore();
+	const navigate = useNavigate();
 
 	let idU = userConnect;
 
@@ -29,7 +31,7 @@ function Article() {
 			})
 			
 		}).then(response => response.text())
-		alert(deleteArt)
+		navigate('/');
 	}
 
 	async function favoris() {
@@ -56,10 +58,12 @@ function Article() {
 				<>
 					<h1>{post.titre}</h1>
 					<p className='postTxt'>{post.texte}</p>
-					<Link to={`/`}>retour à la liste</Link>
 					
-					{role !== 1 ? <p></p> : <button onClick={del}>Delete</button>}
-					{userToken !== '' ? <button onClick={favoris}>Add to Fav</button> : <p></p>}
+					<div className='col'>
+						<Link to={`/`}><button>retour à la liste</button></Link>
+						{userToken !== '' ? <button onClick={favoris}>Add to Fav</button> : <p></p>}
+						{role !== 1 ? <p></p> : <button onClick={del}>Delete</button>}
+					</div>
 
 				</>
 			)}

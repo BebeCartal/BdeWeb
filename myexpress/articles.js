@@ -31,7 +31,6 @@ articleRouter.route('/')
       if (error) throw error;
       res.send('article add');
     })
-    //console.log(req.body)
   
   });
 
@@ -53,7 +52,6 @@ articleRouter.route('/:id')
       if (error) throw error;
       res.send('article delete');
     })
-    console.log(req.body)
   });
 
 module.exports = articleRouter;

@@ -21,7 +21,7 @@ function Categorie() {
 			.then((resc) => setCategories(resc));
 		if (!id || !categories) return;
 		setCateg(categories.find((item) => Number(item.idC) === Number(id)));
-	}, [id, categories]);
+	}, [id]);
 
 	const handleSearchTerm = (e) => {
         //value va intercepté la donnée 

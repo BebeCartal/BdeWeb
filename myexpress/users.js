@@ -27,7 +27,7 @@ connection.connect()
 
 userRouter.route('/')
     .get(checkTokenMiddleware, function(req, res) {
-    connection.query('SELECT mail, mdp FROM utilisateur', (err, rows, fields) => {
+    connection.query('SELECT idU, mail, role FROM utilisateur', (err, rows, fields) => {
       if (err) throw err
     
       res.send(rows)
@@ -44,12 +44,11 @@ userRouter.route('/')
       else{
         const user = {
           mail: req.body.mail,
+          role: 0,
         }
-        const accessToken = generateAccessToken(user);
-        res.send({accessToken, user,});
+        res.send({user});
       }
     })
-    //console.log(req.body)
     })
 
 
@@ -61,7 +60,7 @@ userRouter.route('/:id')
     })
   })
 
-  .put(function(req, res) {
+  .put(checkTokenMiddleware, function(req, res) {
     connection.query('Update utilisateur SET mdp = ? WHERE mail = ?', [req.body.mdp, req.body.mail], function(error, results){
       if (error) throw error
     })
@@ -74,7 +73,6 @@ userRouter.route('/:id')
 
       res.send('users delete');
     })
-    console.log(req.body)
   });
 
 userRouter.route('/login')
@@ -97,25 +95,23 @@ userRouter.route('/login')
         res.send({accessToken,user,});
             }
     })
-    console.log(req.body)
-    
     });
 
 userRouter.route('/:id/favoris')
-  .get(function(req, res){
+  .get(checkTokenMiddleware, function(req, res){
     connection.query('SELECT article.idA, article.titre, article.texte FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?',[req.params.id], function(error,rows){
       if (error) throw error
       res.send(rows)
     })
   })
-  .post((req, res, next) => {
+  .post(checkTokenMiddleware, (req, res, next) => {
     connection.query('INSERT INTO favoris(idU,idA) VALUES(?,?)', [req.body.idU, req.body.idA], function (error, rows) {
       if (error) throw error;
       res.send("Fav add")
     })
   })
-  .delete((req, res) => {
-    connection.query('DELETE FROM favoris WHERE idU = ? AND idA = ?', [req.body.idU], function (error, results){
+  .delete(checkTokenMiddleware, (req, res) => {
+    connection.query('DELETE FROM favoris WHERE idU = ? AND idA = ?', [req.body.idU, req.body.idA], function (error, results){
       if (error) throw error;
 
       res.send('Fav del');

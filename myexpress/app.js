@@ -1,4 +1,3 @@
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
@@ -10,12 +9,9 @@ const port = 3000
 
 require('dotenv').config();
 
-
 const art = require('./articles')
 const users = require('./users')
 const cat = require('./categories')
-
-
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -46,6 +42,6 @@ app.use('/categories', cat)
 app.use(art)
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`App listening on port ${port}`)
 })
 
