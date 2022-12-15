@@ -29,12 +29,10 @@ form{
   padding-right: 20px;
 
 }
-
 form label{
   padding-right: 0;
 
 }
-
 form input, label{
   margin-top: 10px;
   margin-bottom: 10px;
@@ -87,7 +85,6 @@ nav {
   justify-content: space-around;
   flex-flow: row wrap;
 }
-
 nav button{
   background-color: #B5DEE0;
   color: black;
@@ -103,31 +100,42 @@ nav button:hover{
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
+  max-width: 60%;
 }
 
 .card {
-  background-color: #42B395;
-  padding: 2em;
-  width: 200px;
-  min-height: 200px;
-  border-radius: 20%;
-  color: white;
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin:20px
-}
 
+  color: white;
+  background-color: #42B395;
+
+  padding: 2em;
+  margin:20px;
+
+  min-width: 200px;
+  max-width: 350px;
+  min-height: 200px;
+
+  border-radius: 50px;  
+}
 .card:hover{
   color: #B5DEE0;
   cursor: pointer;
 }
-
 .card p {
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.card h2{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30px;
+  padding-bottom: 10px;
 }
 
 .postTxt{
@@ -148,6 +156,3 @@ nav button:hover{
 .read-the-docs {
   color: #888;
 }
-
-
-

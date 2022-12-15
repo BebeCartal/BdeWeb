@@ -39,6 +39,14 @@ h1 {
   line-height: 1.1;
 }
 
+h2{
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 30px;
+  padding-bottom: 10px;
+}
+
 button {
   margin:10px;
   border-radius: 8px;
