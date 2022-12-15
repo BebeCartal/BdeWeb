@@ -47,7 +47,7 @@ function App() {
 		<div className='root'>
 			
 			<header>
-				{role !==1 ? <p></p> : <button onClick={consoleLog}> Console Log</button>}
+				
 				<nav>
 					{categories.length > 0 &&
 					categories.map((post) => {
@@ -57,9 +57,19 @@ function App() {
 					})}
 				</nav>
 				<input type="text" placeholder="search" onChange={handleSearchTerm} />
-				{userToken !== "" ? <button onClick={Disconnect}>Disconnect</button> : <Link to={`/login`}><button>Sign In</button></Link>}
-				{userToken !== "" ? <Link to={`/users/${userConnect}`}><button>account</button></Link> : <Link to={`/register`}><button>Sign Up</button></Link>}
-				{role !== 1 ? <p></p> : <Link to={`/articles/add`}><button>Add Article</button></Link>}
+				<div className='headerMenu'>
+					{userToken !== "" ? <button onClick={Disconnect}>Disconnect</button> : <Link to={`/login`}><button>Sign In</button></Link>}
+					{userToken !== "" ? <Link to={`/users/${userConnect}`}><button>account</button></Link> : <Link to={`/register`}><button>Sign Up</button></Link>}
+				</div>
+				
+				{role !== 1 ? <p></p> :
+					<div className='headerMenu'>
+						<Link to={`/articles/add`}><button>Add Article</button></Link>
+						<Link to={`/articles/add`}><button>Add Categorie</button></Link>
+						<button onClick={consoleLog}> Console Log</button>
+					</div>
+				}
+				
 			</header>
 			<h1>Les articles</h1>
 			
