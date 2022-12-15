@@ -47,7 +47,7 @@ function App() {
 		<div className='root'>
 			
 			<header>
-				
+				<h1>BDE ASCII.net</h1>
 				<nav>
 					{categories.length > 0 &&
 					categories.map((post) => {
@@ -65,13 +65,10 @@ function App() {
 				{role !== 1 ? <p></p> :
 					<div className='headerMenu'>
 						<Link to={`/articles/add`}><button>Add Article</button></Link>
-						<Link to={`/articles/add`}><button>Add Categorie</button></Link>
-						<button onClick={consoleLog}> Console Log</button>
 					</div>
 				}
 				
 			</header>
-			<h1>Les articles</h1>
 			
 			<div className='tab'>
                 {posts.filter((post) => {

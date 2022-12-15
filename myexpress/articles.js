@@ -42,6 +42,13 @@ articleRouter.route('/:id')
     })
   })
 
+  .post(checkTokenMiddleware, function(req, res){
+    connection.query('INSERT INTO tager(idA, idC) VALUES (?, (SELECT idC FROM categorie WHERE categorie.nomC LIKE "%?%"))',[req.body.idA, req.body.nomC], function(error, rows){
+      if (error) throw error;
+      res.send("Add to the categorie")
+    })
+  })
+
   .put(checkTokenMiddleware, function(req, res) {
     connection.query('Update article SET titre = ?, texte = ? WHERE idA = ?', [req.body.titre, req.body.texte, req.params.id])
     res.send('Update article');

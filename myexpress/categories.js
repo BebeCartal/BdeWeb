@@ -40,13 +40,6 @@ catRouter.route('/:id')
     })
   })
 
-  .post(checkTokenMiddleware, function(req, res){
-    connection.query('INSERT INTO tager(idA,idC) VALUES(?,?)',[req.body.idA, req.body.idC], function(error, rows){
-      if (error) throw error;
-      res.send("Add to the categorie")
-    })
-  })
-
   .put(checkTokenMiddleware, function(req, res) {
     connection.query('Update categorie SET nom = ? WHERE idU = ?', [req.body.nomC, req.params.id])
     res.send('Update categorie');

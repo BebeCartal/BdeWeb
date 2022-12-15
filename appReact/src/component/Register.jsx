@@ -37,7 +37,7 @@ function Register() {
 
     const renderForm=(
         <div className='root'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="normalForm">
             <h1> Sign Up </h1>
                 <div className='cote'>
                     <div className='test'>

@@ -31,7 +31,7 @@ function AddArt() {
 		
 		<div className='root'>
             
-            <form onSubmit={handleSubmit} id='AddArt'>
+            <form onSubmit={handleSubmit} id='AddArt' className="normalForm">
             
            		<h1> Add Article </h1>
                 
@@ -39,7 +39,7 @@ function AddArt() {
 					<label>Title:</label>
 					<textarea type="text" name="title" id="titleInput" required rows="2" cols="50"/>
 					<label>Content: </label>
-					<textarea type="text" name="content" id="contentInput" required rows="40" cols="100"/>
+					<textarea type="text" name="content" id="contentInput" required rows="35" cols="100"/>
 				</div>
             
                 <button type="submit">Add</button>
