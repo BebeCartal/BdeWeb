@@ -1,7 +1,7 @@
 # BdeWeb
 Web Site for BDEASCII
 
-For try this template, we must have XAMPP on your computer.
+For try this template, you must have XAMPP on your computer.
 
 Clone the repository on your how computer, open the repository in Visual Studio Code.
 Import the database in your MySQL with XAMPP
