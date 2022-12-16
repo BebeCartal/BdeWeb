@@ -90,6 +90,7 @@ function Article() {
 		<div className='root'>
 
 			<header>
+				<Link to={`/`} style={linkStyle}><h1>BDE ASCII.net</h1></Link>
 				<nav>
 					{categories.length > 0 &&
 						categories.map((post) => {
