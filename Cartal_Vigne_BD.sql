@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 09 déc. 2022 à 23:56
+-- Généré le : ven. 16 déc. 2022 à 11:15
 -- Version du serveur : 10.4.21-MariaDB
 -- Version de PHP : 8.0.11
 
@@ -40,10 +40,10 @@ CREATE TABLE `article` (
 INSERT INTO `article` (`idA`, `titre`, `texte`) VALUES
 (1, 'Rendu TP WEB', 'Le rendu du TP de web de Kristen est le 9 décembre. Il sera évluer en cours la semaine du 12.'),
 (8, 'Une élection du Président du BDE s’impose !', 'Cela fait 5 mois que ce cher Antonin BELOU est notre président BDE alors qu’il n’est plus étudiant dans notre formation. Cette situation ne peut être tolérée d’autant plus qu’un président du BDE ce doit être présent pour les étudiants il est un symbole ! Comment cela peut-il être le cas avec une personne extérieure à la formation ? \nPour remettre de l’ordre dans cette situation, il faut une nouvelle élection toutes les années peuvent se présentées seuls les personnes partant au Canada en Janvier 2023 ne seront pas autorisés. Nous comptons sur votre investissement lors du vote qui aura bientôt lieu !\n'),
-(9, 'Une salle de création pour nous !', 'Vous avez des idées de modélisation, de jeux, d’expérience en VR mais aucun matériel pour les réalisés ? Pas de panique ! La chef du département Informatique Mme Adélaïde ALBOUY-KISSI a mis en place une salle (356-357) de création. Vous aurez à votre disposition 25 casques de réalité virtuelle avec 2 pc fixes sur place pour travailler in situ, une imprimante 3D, des tablettes graphiques…\nAussi le BDE a choisi d’y installé un piano pour vous laisser vous exprimer de façon musicale. Le BDE et la cheffe de département sont à votre disposition pour quelconque aide. N’hésitez pas ! L’imagination est notre route vers l’avenir !\n'),
 (10, 'La Réalité Virtuelle un futur avec autant de possibilité que l’imagination le permet', 'Comme vous le savez tous la Réalité Virtuelle s’installe dans beaucoup de domaines : l’architecture, l’immobilier, les jeux vidéo, la recherche … Mais saviez-vous qu’elle s’installe aussi dans le domaine de l’enseignement ? En effet, plusieurs formations sont développées en réalité virtuelle pour donner une expérience manuelle et sans danger. Vous trouverez aussi les visites virtuelles qui commencent à prendre place dans notre société permettant ainsi de visiter sans déplacements réels.'),
 (11, 'Le Métavers arrive dans notre formation', 'Le métavers, ce monde virtuel dont on entend parler de partout. Pour information, c’est un terme est régulièrement utilisé pour décrire une version future d\'Internet où des espaces virtuels, persistants et partagés sont accessibles via interaction 3D ou 2D en visioconférence. Il existe une autre définition conçoit le métavers comme l\'ensemble des mondes virtuels connectés à Internet, lesquels sont perçus en Réalité Augmentée. \nCette notion est considérée comme le futur de notre milieu, c’est pourquoi il est important d’expérimenter la VR et de comprendre la 3D qui sera bientôt dans nos sites web.\n'),
-(12, 'Surprise pour le gala de Noël des MMI', 'Vous savez tous l’arrivée du gala de Noël organisée par les MMI. Mais saviez-vous que votre BDE organise un petit concours pour vous ? Pour la première fois votre BDE vous propose une petite mise en bouche du concours MisterInfo avec SantaInfo ! Ce concours suit le principe de mettre en avant votre virilité, vos muscles et votre testostérone par le biais de tenue sexy féminine et sur l’esprit de Noël !\nLe concours ayant lieu durant le gala de Noël des MMI, c’est à la fin du gala que le jury composé notamment des 3 filles du département délibérera pour décerner le prix SantaInfo et son trophée spécial !\n');
+(12, 'Surprise pour le gala de Noël des MMI', 'Vous savez tous l’arrivée du gala de Noël organisée par les MMI. Mais saviez-vous que votre BDE organise un petit concours pour vous ? Pour la première fois votre BDE vous propose une petite mise en bouche du concours MisterInfo avec SantaInfo ! Ce concours suit le principe de mettre en avant votre virilité, vos muscles et votre testostérone par le biais de tenue sexy féminine et sur l’esprit de Noël !\nLe concours ayant lieu durant le gala de Noël des MMI, c’est à la fin du gala que le jury composé notamment des 3 filles du département délibérera pour décerner le prix SantaInfo et son trophée spécial !\n'),
+(23, 'Une salle de création pour nous !', 'Vous avez des idées de modélisation, de jeux, d’expérience en VR mais aucun matériel pour les réalisés ? Pas de panique ! La chef du département Informatique Mme Adélaïde ALBOUY-KISSI a mis en place une salle (356-357) de création. Vous aurez à votre disposition 25 casques de réalité virtuelle avec 2 pc fixes sur place pour travailler in situ, une imprimante 3D, des tablettes graphiques…\nAussi le BDE a choisi d’y installé un piano pour vous laisser vous exprimer de façon musicale. Le BDE et la cheffe de département sont à votre disposition pour quelconque aide. N’hésitez pas ! L’imagination est notre route vers l’avenir !\n');
 
 -- --------------------------------------------------------
 
@@ -79,6 +79,15 @@ CREATE TABLE `favoris` (
   `idA` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `favoris`
+--
+
+INSERT INTO `favoris` (`idU`, `idA`) VALUES
+(1, 1),
+(1, 23),
+(2, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +98,13 @@ CREATE TABLE `tager` (
   `idA` int(11) NOT NULL,
   `idC` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `tager`
+--
+
+INSERT INTO `tager` (`idA`, `idC`) VALUES
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -112,7 +128,8 @@ INSERT INTO `utilisateur` (`idU`, `mail`, `mdp`, `role`) VALUES
 (2, 'lena@live.sh', 'coucou30', 0),
 (3, 'baptiste@bdeascii.fr', 'Bonsoir63', 0),
 (4, 'remi@bde.fr', 'reumix63', 0),
-(17, 'bde.ascii43@gmail.com', 'admin', 1);
+(17, 'bde.ascii43@gmail.com', 'admin', 1),
+(18, 'test@test.net', 'test', 0);
 
 --
 -- Index pour les tables déchargées
@@ -159,13 +176,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
-  MODIFY `idA` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idA` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `idU` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idU` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Contraintes pour les tables déchargées
@@ -175,15 +192,15 @@ ALTER TABLE `utilisateur`
 -- Contraintes pour la table `favoris`
 --
 ALTER TABLE `favoris`
-  ADD CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`idU`) REFERENCES `utilisateur` (`idU`),
-  ADD CONSTRAINT `favoris_ibfk_2` FOREIGN KEY (`idA`) REFERENCES `article` (`idA`);
+  ADD CONSTRAINT `favoris_ibfk_1` FOREIGN KEY (`idU`) REFERENCES `utilisateur` (`idU`) ON DELETE CASCADE,
+  ADD CONSTRAINT `favoris_ibfk_2` FOREIGN KEY (`idA`) REFERENCES `article` (`idA`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `tager`
 --
 ALTER TABLE `tager`
-  ADD CONSTRAINT `tager_ibfk_1` FOREIGN KEY (`idA`) REFERENCES `article` (`idA`),
-  ADD CONSTRAINT `tager_ibfk_2` FOREIGN KEY (`idC`) REFERENCES `categorie` (`idC`);
+  ADD CONSTRAINT `tager_ibfk_1` FOREIGN KEY (`idA`) REFERENCES `article` (`idA`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tager_ibfk_2` FOREIGN KEY (`idC`) REFERENCES `categorie` (`idC`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
