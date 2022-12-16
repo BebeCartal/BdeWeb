@@ -7,6 +7,6 @@ export const useUserStore = create((set) => ({
 	role: '',
 	setUserToken: (userToken) => set((state) => ({ userToken: userToken })),
 	setUsers: (users) => set((state) => ({ users: users })),
-	setConnect: (userConnect) => set((state) =>({userConnect: userConnect})),
-	setRole: (role) => set((state) =>({role: role})),
+	setConnect: (userConnect) => set((state) => ({ userConnect: userConnect })),
+	setRole: (role) => set((state) => ({ role: role })),
 }));

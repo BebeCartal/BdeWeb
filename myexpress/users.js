@@ -26,49 +26,49 @@ function generateAccessToken(user) {
 connection.connect()
 
 userRouter.route('/')
-    .get(checkTokenMiddleware, function(req, res) {
+  .get(checkTokenMiddleware, function (req, res) {
     connection.query('SELECT idU, mail, role FROM utilisateur', (err, rows, fields) => {
       if (err) throw err
-    
+
       res.send(rows)
     })
   })
 
-    .post((req, res, next) => {
+  .post((req, res, next) => {
     connection.query('INSERT INTO utilisateur(mail, mdp) VALUES (?,?)', [req.body.mail, req.body.mdp], function (error) {
       //if (error) throw error;
-      if(error){
-        res.send({error:"mail already use"})
+      if (error) {
+        res.send({ error: "mail already use" })
         return;
       }
-      else{
+      else {
         const user = {
           mail: req.body.mail,
           role: 0,
         }
-        res.send({user});
+        res.send({ user });
       }
     })
-    })
+  })
 
 
 userRouter.route('/:id')
-  .get(function(req, res){
-    connection.query('Select idU, mail, mdp from utilisateur where idU = ?',[req.params.id], function(error,rows){
+  .get(function (req, res) {
+    connection.query('Select idU, mail, mdp from utilisateur where idU = ?', [req.params.id], function (error, rows) {
       if (error) throw error
       res.send(rows)
     })
   })
 
-  .put(checkTokenMiddleware, function(req, res) {
-    connection.query('Update utilisateur SET mdp = ? WHERE mail = ?', [req.body.mdp, req.body.mail], function(error, results){
+  .put(checkTokenMiddleware, function (req, res) {
+    connection.query('Update utilisateur SET mdp = ? WHERE mail = ?', [req.body.mdp, req.body.mail], function (error, results) {
       if (error) throw error
     })
     res.send('Update users');
   })
 
   .delete(checkTokenMiddleware, (req, res) => {
-    connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results){
+    connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results) {
       if (error) throw error;
 
       res.send('users delete');
@@ -79,27 +79,28 @@ userRouter.route('/login')
   .post((req, res, next) => {
     connection.query('Select idU, mail, role from utilisateur where mail = ? and mdp = ?', [req.body.mail, req.body.mdp], function (error, rows) {
       if (error) throw error;
-      if (rows.length === 0){
+      console.log(rows)
+      if (rows.length === 0) {
         res.send({
-          error:'invalid user or password'
+          error: 'invalid user or password'
         })
         return;
       }
-      else{
+      else {
         const user = {
           idU: rows[0].idU,
           mail: req.body.mail,
           role: rows[0].role,
         }
         const accessToken = generateAccessToken(user);
-        res.send({accessToken,user,});
-            }
+        res.send({ accessToken, user, });
+      }
     })
-    });
+  });
 
 userRouter.route('/:id/favoris')
-  .get(checkTokenMiddleware, function(req, res){
-    connection.query('SELECT article.idA, article.titre, article.texte FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?',[req.params.id], function(error,rows){
+  .get(checkTokenMiddleware, function (req, res) {
+    connection.query('SELECT article.idA, article.titre, article.texte FROM favoris NATURAL JOIN article NATURAL JOIN utilisateur WHERE utilisateur.idU = ?', [req.params.id], function (error, rows) {
       if (error) throw error
       res.send(rows)
     })
@@ -111,7 +112,7 @@ userRouter.route('/:id/favoris')
     })
   })
   .delete(checkTokenMiddleware, (req, res) => {
-    connection.query('DELETE FROM favoris WHERE idU = ? AND idA = ?', [req.body.idU, req.body.idA], function (error, results){
+    connection.query('DELETE FROM favoris WHERE idU = ? AND idA = ?', [req.body.idU, req.body.idA], function (error, results) {
       if (error) throw error;
 
       res.send('Fav del');

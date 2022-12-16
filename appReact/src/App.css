@@ -1,27 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
 
-body{
+body {
   font-family: 'Maven Pro', sans-serif;
   width: 100%;
   /*background-color: #4C626F;*/
 }
 
-#root, .root {
+#root,
+.root {
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   text-align: center;
   width: 100%;
 }
 
-.normalForm{
+.normalForm {
   margin-top: 10%;
-  
+
   background-color: #B5DEE0;
   border-radius: 5%;
   min-height: 250px;
   color: black;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,43 +31,48 @@ body{
   padding-left: 20px;
   padding-right: 20px;
 }
-.normalForm label{
+
+.normalForm label {
   padding-right: 0;
 
 }
-.normalForm input, label{
+
+.normalForm input,
+label {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.normalForm button{
+
+.normalForm button {
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
-.cote{
+.cote {
   display: flex;
   flex-direction: row;
 
 }
 
-.test{
+.test {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   margin-right: 5px;
   margin-left: 5px;
 }
-.App{
+
+.App {
   width: 100%;
-  margin : 0px;
-  padding : 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
-header{
+header {
   margin-top: 0;
   background-color: #42B395;
   width: 100%;
-  
+
   min-height: 100px;
   display: flex;
   align-items: center;
@@ -75,7 +81,7 @@ header{
 
 }
 
-.headerMenu{
+.headerMenu {
   display: flex;
   flex-flow: column;
 }
@@ -86,18 +92,20 @@ nav {
   justify-content: space-around;
   flex-flow: row wrap;
 }
-nav button{
+
+nav button {
   background-color: #B5DEE0;
   color: black;
   border: none;
 }
-nav button:hover{
-  border : none;
-  color : white;
+
+nav button:hover {
+  border: none;
+  color: white;
 
 }
 
-.tab{
+.tab {
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
@@ -114,49 +122,56 @@ nav button:hover{
   background-color: #42B395;
 
   padding: 2em;
-  margin:20px;
+  margin: 20px;
 
   min-width: 200px;
   max-width: 350px;
   min-height: 200px;
 
-  border-radius: 50px;  
+  border-radius: 50px;
 }
-.card:hover{
+
+.card:hover {
   color: #B5DEE0;
   cursor: pointer;
 }
+
 .card p {
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.card h2{
-  white-space: nowrap; 
+
+.card h2 {
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 30px;
   padding-bottom: 10px;
 }
 
-.postTxt{
+.postTxt {
   max-width: 1000px;
   text-align: center;
 }
 
-#art{
+#art {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-#art label{
+#art label {
   margin-left: 30px;
 }
 
-#AddArt{
+#AddArt {
   margin-top: 0px;
   max-height: 100%;
+}
+
+Link {
+  color: white;
 }
 
 .read-the-docs {

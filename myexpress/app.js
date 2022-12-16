@@ -32,7 +32,7 @@ connection.connect()
   next();
 });*/
 
-router.get('/', function(req, res){
+router.get('/', function (req, res) {
   res.send('Home Page');
 });
 

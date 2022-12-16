@@ -16,37 +16,37 @@ const connection = mysql.createConnection({
 connection.connect()
 
 catRouter.route('/')
-    .get(function(req, res) {
+  .get(function (req, res) {
     connection.query('SELECT * FROM categorie', (err, rows, fields) => {
       if (err) throw err
-    
+
       res.send(rows)
     })
   })
 
-    .post(checkTokenMiddleware, (req, res, next) => {
+  .post(checkTokenMiddleware, (req, res, next) => {
     connection.query('INSERT INTO categorie(idC, nomC) VALUES (?,?)', [req.body.idC, req.body.nomC], function (error, results, fields) {
-        if (error) throw error;
-        res.send('categorie add');
+      if (error) throw error;
+      res.send('categorie add');
     })
-    })
+  })
 
 
 catRouter.route('/:id')
-  .get(function(req, res){
-    connection.query('SELECT idA, titre FROM `tager` NATURAL JOIN article NATURAL JOIN categorie WHERE categorie.idC = ?',[req.params.id], function(error,rows){
+  .get(function (req, res) {
+    connection.query('SELECT idA, titre, texte FROM `tager` NATURAL JOIN article NATURAL JOIN categorie WHERE categorie.idC = ?', [req.params.id], function (error, rows) {
       if (error) throw error
       res.send(rows)
     })
   })
 
-  .put(checkTokenMiddleware, function(req, res) {
+  .put(checkTokenMiddleware, function (req, res) {
     connection.query('Update categorie SET nom = ? WHERE idU = ?', [req.body.nomC, req.params.id])
     res.send('Update categorie');
   })
 
   .delete(checkTokenMiddleware, (req, res) => {
-    connection.query('DELETE FROM categorie WHERE idC = ?', [req.params.idC], function (error, results){
+    connection.query('DELETE FROM categorie WHERE idC = ?', [req.params.idC], function (error, results) {
       if (error) throw error;
       res.send('categorie delete');
     })
