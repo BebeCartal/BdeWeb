@@ -51,6 +51,14 @@ userRouter.route('/')
     })
   })
 
+  .delete(checkTokenMiddleware, (req, res) => {
+    connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results) {
+      if (error) throw error;
+
+      res.send('users delete');
+    })
+  })
+
 
 userRouter.route('/:id')
   .get(function (req, res) {
@@ -67,13 +75,7 @@ userRouter.route('/:id')
     res.send('Update users');
   })
 
-  .delete(checkTokenMiddleware, (req, res) => {
-    connection.query('DELETE FROM utilisateur WHERE idU = ?', [req.body.idU], function (error, results) {
-      if (error) throw error;
-
-      res.send('users delete');
-    })
-  });
+  ;
 
 userRouter.route('/login')
   .post((req, res, next) => {
